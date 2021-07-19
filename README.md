@@ -23,10 +23,32 @@ Sondos Aljawhary is my teammate.
 
 Name of feature: lab 11
 
-Estimate of time needed to complete: 5
+Estimate of time needed to complete: 5 hours
 
 Start time: 2 pm
 
 Finish time: 5 pm 
 
 Actual time needed to complete: 3 hours
+..............................................................................................
+
+Name of feature: lab 12
+
+Estimate of time needed to complete: one day
+
+Start time: 5 pm
+
+Finish time: 9 pm 
+
+Actual time needed to complete: 4 hours
+..............................................................................................
+
+Name of feature: lab 13
+
+Estimate of time needed to complete: one day
+
+Start time: 10 pm
+
+Finish time: 4 am 
+
+Actual time needed to complete: 6 hours
