@@ -6,6 +6,7 @@ import axios from 'axios';
 import { withAuth0 } from '@auth0/auth0-react';
 import BookModalForm from './components/BookModalForm';
 import { Button } from 'react-bootstrap';
+import UpdateBook from './components/UpdateBook';
 
 
 class MyFavoriteBooks extends React.Component {
@@ -86,6 +87,37 @@ class MyFavoriteBooks extends React.Component {
     })
   }
 
+  showUpdateBookForm = async (index) => {
+    await this.setState({
+      showUpdateForm: true,
+      index: index,
+      bookName: this.state.bookData[index].name,
+      bookDescription: this.state.bookData[index].description,
+      bookStatus: this.state.bookData[index].status,
+      bookImg: this.state.bookData[index].img
+
+    })
+  }
+
+
+  updateBook = async (event) => {
+    event.preventDefault();
+
+    let bookFormData = {
+      userEmail: this.state.userEmail,
+      bookName: event.target.bookName.value,
+      bookDescription: event.target.bookDescription.value,
+      bookStatus: event.target.bookStatus.value,
+      bookImg: event.target.bookImg.value
+    }
+
+    let result = await axios.put(`${this.state.server}/updateBook/${this.state.index}`, bookFormData)
+
+    this.setState({
+      bookData: result.data
+    })
+  }
+
 
 
 
@@ -118,23 +150,26 @@ class MyFavoriteBooks extends React.Component {
                 <img src={item.img} style={{ width: '200px', marginLeft: '500px' }}></img>
 
                 <Button onClick={() => this.deletedBook(idx)}>Delete Book</Button>
+                <Button onClick={() => this.showUpdateBookForm(idx)}>Update Book</Button>
               </card>
             )
-          }),
+          })
+        }
+
+          {this.state.showUpdateBookForm &&
+            <UpdateBook updateBook={this.updateBook} name={this.state.bookName} description={this.state.bookDescription} status={this.state.bookStatus} img={this.state.bookImg} />}
+
+          <Button onClick={this.showModalHandler} variant="primary" type="submit" >Add Book</Button>
+          <BookModalForm addBook={this.addBook} show={this.state.showModal} onHide={this.closeModalHandler} />
 
 
 
 
-            <div>
 
-              <Button onClick={this.showModalHandler} variant="primary" type="submit" onClick={this.props.onHide}>Add Book</Button>
-              <BookModalForm addBook={this.addBook} show={this.state.showModal} onHide={this.closeModalHandler} />
-            </div>
 
-    
-     </Jumbotron>
+        </Jumbotron>
       </div>
-    )
+    );
   }
 }
 
